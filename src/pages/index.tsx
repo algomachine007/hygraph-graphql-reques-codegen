@@ -3,12 +3,20 @@ import { GetServerSideProps } from "next";
 
 export default function Home({ data }: any) {
   console.log(data);
-  return <>Ok</>;
+  return (
+    <>
+      {data?.blogModels.map((e: any) => (
+        <div key={e.title}>
+          <h1>{e.title}</h1>
+        </div>
+      ))}
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new GraphQLClient(process.env.NEXT_URL_HYGRAPH_URL || "");
-  const query = gql`
+  const BLOG_POSTS = gql`
     {
       blogModels {
         createdAt
@@ -21,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       }
     }
   `;
-  const data = await client.request(query);
+  const data = await client.request(BLOG_POSTS);
   return {
     props: { data: data },
   };
