@@ -28,6 +28,7 @@ const Sidebar = () => {
   );
   useEffect(() => {
     window.addEventListener("mousemove", resize);
+
     window.addEventListener("mouseup", stopResizing);
     return () => {
       window.removeEventListener("mousemove", resize);
@@ -36,15 +37,17 @@ const Sidebar = () => {
   }, [resize, stopResizing]);
 
   return (
-    <aside
-      ref={ref}
-      className={styles.sidebar}
-      style={{ width: `${Number(storedValue)}px` }}
-      onMouseDown={(e) => e.preventDefault()}
-    >
-      <div id="resize" className={styles.control} onMouseDown={startResizing} />
-      Sidebar
-    </aside>
+    <>
+      <aside
+        ref={ref}
+        className={styles.sidebar}
+        style={{ width: `${Number(storedValue)}px` }}
+        onMouseDown={(e) => e.preventDefault()}
+      >
+        <div className={styles.control} onMouseDown={startResizing} />
+        Sidebar
+      </aside>
+    </>
   );
 };
 
