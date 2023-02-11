@@ -9,7 +9,11 @@ const config: CodegenConfig = {
     "./src/gql/": {
       documents: ["src/**/*.tsx"],
       preset: "client",
+
       plugins: [],
+      config: {
+        fetcher: "graphql-request",
+      },
     },
   },
 };
