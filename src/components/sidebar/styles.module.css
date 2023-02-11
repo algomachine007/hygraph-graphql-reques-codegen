@@ -1,6 +1,6 @@
 .sidebar {
   border: 1px solid white;
-
+  box-sizing: border-box;
   height: calc(100vh - 15vh);
   position: relative;
 }

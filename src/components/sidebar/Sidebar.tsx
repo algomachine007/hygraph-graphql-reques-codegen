@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import useLocalStorage from "../../hook/useLocalStorage";
 import styles from "./styles.module.css";
 const Sidebar = () => {
   const ref = useRef(null);
 
-  const [width, setWidth] = useState(400);
+  const [storedValue, setValue] = useLocalStorage("resizedWidth", 600);
 
   const [isResizing, setIsResizing] = useState(false);
-  console.log(ref);
 
-  const startResizing = useCallback((mouseDownEvent: any) => {
+  const startResizing = useCallback((mouseDownEvent: MouseEvent) => {
     setIsResizing(true);
   }, []);
 
@@ -17,16 +17,15 @@ const Sidebar = () => {
   }, []);
 
   const resize = useCallback(
-    (mouseMoveEvent: any) => {
+    (mouseMoveEvent: MouseEvent) => {
       if (isResizing) {
-        setWidth(
-          mouseMoveEvent.clientX - ref?.current.getBoundingClientRect().left,
+        setValue(
+          mouseMoveEvent.clientX - ref.current.getBoundingClientRect().left,
         );
       }
     },
-    [isResizing],
+    [isResizing, setValue],
   );
-
   useEffect(() => {
     window.addEventListener("mousemove", resize);
     window.addEventListener("mouseup", stopResizing);
@@ -40,7 +39,7 @@ const Sidebar = () => {
     <aside
       ref={ref}
       className={styles.sidebar}
-      style={{ width: `${width}px` }}
+      style={{ width: `${Number(storedValue)}px` }}
       onMouseDown={(e) => e.preventDefault()}
     >
       <div id="resize" className={styles.control} onMouseDown={startResizing} />
