@@ -1,6 +1,6 @@
 .sidebar {
   border: 1px solid white;
-  min-width: 300px;
+
   height: calc(100vh - 15vh);
   position: relative;
 }
@@ -23,9 +23,9 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 10px -10px #c6c6c6;
+    box-shadow: 0 0 5px -10px #c6c6c6;
   }
   to {
-    box-shadow: 0 0 10px 10px #c6c6c6;
+    box-shadow: 0 0 5px 10px #c6c6c6;
   }
 }
