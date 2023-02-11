@@ -5,8 +5,6 @@ import styles from "./style.module.css";
 // put an animation on it
 
 const Main = ({ children }: { children: React.ReactNode }) => {
-  console.log(children);
-
   return (
     <header>
       <>
