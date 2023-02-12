@@ -7,4 +7,7 @@ query Sidebar {
 fragment SidebarsFragment on Sidebar {
   title
   slug
+  icon {
+    url
+  }
 }

@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SidebarsQuery } from "../../gql/graphql";
 import useLocalStorage from "../../hook/useLocalStorage";
 import styles from "./styles.module.css";
 const Sidebar = ({ sidebars }: SidebarsQuery) => {
-  console.log(sidebars);
   const ref = useRef(null);
 
   const [storedValue, setValue] = useLocalStorage("resizedWidth", 600);
@@ -50,9 +50,17 @@ const Sidebar = ({ sidebars }: SidebarsQuery) => {
         <div className={styles.control} onMouseDown={startResizing} />
 
         <ul className={styles.linkWrapper}>
-          {sidebars.map((sidebar) => (
-            <Link href={sidebar.slug} key={sidebar.slug}>
-              {sidebar.title}
+          {sidebars?.map((sidebar) => (
+            <Link href={sidebar.slug || ""} key={sidebar.slug}>
+              <span>
+                <Image
+                  src={sidebar?.icon?.url.toString()}
+                  alt="Picture of the author"
+                  width={50}
+                  height={50}
+                />
+                {sidebar.title}
+              </span>
             </Link>
           ))}{" "}
         </ul>

@@ -49,6 +49,7 @@ export type Asset = Node & {
   height?: Maybe<Scalars['Float']>;
   /** List of Asset versions */
   history: Array<Version>;
+  iconSidebar: Array<Sidebar>;
   /** The unique identifier */
   id: Scalars['ID'];
   /** System Locale field */
@@ -103,6 +104,20 @@ export type AssetHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+/** Asset system model */
+export type AssetIconSidebarArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<SidebarOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SidebarWhereInput>;
 };
 
 
@@ -179,6 +194,7 @@ export type AssetCreateInput = {
   fileName: Scalars['String'];
   handle: Scalars['String'];
   height?: InputMaybe<Scalars['Float']>;
+  iconSidebar?: InputMaybe<SidebarCreateManyInlineInput>;
   /** Inline mutations for managing document localizations excluding the default locale */
   localizations?: InputMaybe<AssetCreateLocalizationsInput>;
   mimeType?: InputMaybe<Scalars['String']>;
@@ -261,6 +277,9 @@ export type AssetManyWhereInput = {
   documentInStages_every?: InputMaybe<AssetWhereStageInput>;
   documentInStages_none?: InputMaybe<AssetWhereStageInput>;
   documentInStages_some?: InputMaybe<AssetWhereStageInput>;
+  iconSidebar_every?: InputMaybe<SidebarWhereInput>;
+  iconSidebar_none?: InputMaybe<SidebarWhereInput>;
+  iconSidebar_some?: InputMaybe<SidebarWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -352,6 +371,7 @@ export type AssetUpdateInput = {
   fileName?: InputMaybe<Scalars['String']>;
   handle?: InputMaybe<Scalars['String']>;
   height?: InputMaybe<Scalars['Float']>;
+  iconSidebar?: InputMaybe<SidebarUpdateManyInlineInput>;
   /** Manage document localizations */
   localizations?: InputMaybe<AssetUpdateLocalizationsInput>;
   mimeType?: InputMaybe<Scalars['String']>;
@@ -565,6 +585,9 @@ export type AssetWhereInput = {
   height_not?: InputMaybe<Scalars['Float']>;
   /** All values that are not contained in given list. */
   height_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+  iconSidebar_every?: InputMaybe<SidebarWhereInput>;
+  iconSidebar_none?: InputMaybe<SidebarWhereInput>;
+  iconSidebar_some?: InputMaybe<SidebarWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3267,6 +3290,8 @@ export type Sidebar = Node & {
   documentInStages: Array<Sidebar>;
   /** List of Sidebar versions */
   history: Array<Version>;
+  /** This is the sidebar icon */
+  icon?: Maybe<Asset>;
   /** The unique identifier */
   id: Scalars['ID'];
   /** The time the document was published. Null on documents in draft stage. */
@@ -3302,6 +3327,12 @@ export type SidebarHistoryArgs = {
   limit?: Scalars['Int'];
   skip?: Scalars['Int'];
   stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type SidebarIconArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
 };
 
 
@@ -3347,6 +3378,7 @@ export type SidebarConnection = {
 
 export type SidebarCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  icon?: InputMaybe<AssetCreateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -3404,6 +3436,7 @@ export type SidebarManyWhereInput = {
   documentInStages_every?: InputMaybe<SidebarWhereStageInput>;
   documentInStages_none?: InputMaybe<SidebarWhereStageInput>;
   documentInStages_some?: InputMaybe<SidebarWhereStageInput>;
+  icon?: InputMaybe<AssetWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3514,6 +3547,7 @@ export enum SidebarOrderByInput {
 }
 
 export type SidebarUpdateInput = {
+  icon?: InputMaybe<AssetUpdateOneInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -3617,6 +3651,7 @@ export type SidebarWhereInput = {
   documentInStages_every?: InputMaybe<SidebarWhereStageInput>;
   documentInStages_none?: InputMaybe<SidebarWhereStageInput>;
   documentInStages_some?: InputMaybe<SidebarWhereStageInput>;
+  icon?: InputMaybe<AssetWhereInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -4245,8 +4280,8 @@ export type BlogPostsQuery = { __typename?: 'Query', blogModels: Array<{ __typen
 export type SidebarsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SidebarsQuery = { __typename?: 'Query', sidebars: Array<{ __typename?: 'Sidebar', title?: string | null, slug?: string | null }> };
+export type SidebarsQuery = { __typename?: 'Query', sidebars: Array<{ __typename?: 'Sidebar', title?: string | null, slug?: string | null, icon?: { __typename?: 'Asset', url: string } | null }> };
 
 
 export const BlogPostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"blogPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogModels"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BlogPostsQuery, BlogPostsQueryVariables>;
-export const SidebarsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<SidebarsQuery, SidebarsQueryVariables>;
+export const SidebarsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"icon"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<SidebarsQuery, SidebarsQueryVariables>;
