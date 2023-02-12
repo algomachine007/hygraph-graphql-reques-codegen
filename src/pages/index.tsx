@@ -1,13 +1,18 @@
-import { GraphQLClient, gql } from "graphql-request";
+import { GraphQLClient } from "graphql-request";
 import { GetServerSideProps } from "next";
+import { graphql } from "../gql/gql";
+import { BlogPostsQuery } from "../gql/graphql";
 
-export default function Home({ data }: any) {
-  console.log(data);
+type TBlogPosts = {
+  blogPosts: BlogPostsQuery;
+};
+
+export default function Home({ blogPosts }: TBlogPosts) {
   return (
     <>
-      {data?.blogModels.map((e: any) => (
-        <div key={e.title}>
-          <h1>{e.title}</h1>
+      {blogPosts.blogModels?.map((blogPost) => (
+        <div key={blogPost.title}>
+          <h1>{blogPost.title}</h1>
         </div>
       ))}
     </>
@@ -16,8 +21,9 @@ export default function Home({ data }: any) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new GraphQLClient(process.env.NEXT_URL_HYGRAPH_URL || "");
-  const BLOG_POSTS = gql`
-    {
+
+  const BLOGS = graphql(/* GraphQL */ `
+    query blogPosts {
       blogModels {
         createdAt
         id
@@ -28,9 +34,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
         updatedAt
       }
     }
-  `;
-  const data = await client.request(BLOG_POSTS);
+  `);
+
+  // const BLOG_POSTS = gql`
+  //   {
+  //     blogPosts {
+  //       createdAt
+  //       id
+  //       publishedAt
+  //       slug
+  //       subtitle
+  //       title
+  //       updatedAt
+  //     }
+  //   }
+  // `;
+  const data = await client.request(BLOGS);
   return {
-    props: { data: data },
+    props: { blogPosts: data },
   };
 };

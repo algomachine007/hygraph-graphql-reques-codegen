@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -3048,6 +3049,173 @@ export type ScheduledReleaseWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
+export type Sidebar = {
+  __typename?: 'Sidebar';
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** System stage field */
+  stage: Stage;
+};
+
+/** A connection to a list of items. */
+export type SidebarConnection = {
+  __typename?: 'SidebarConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<SidebarEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type SidebarCreateInput = {
+  /** No fields in create input */
+  _?: InputMaybe<Scalars['String']>;
+};
+
+export type SidebarCreateWithPositionInput = {
+  /** Document to create */
+  data: SidebarCreateInput;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+};
+
+/** An edge in a connection. */
+export type SidebarEdge = {
+  __typename?: 'SidebarEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Sidebar;
+};
+
+/** Identifies documents */
+export type SidebarManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+};
+
+export enum SidebarOrderByInput {
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC'
+}
+
+export type SidebarUpdateInput = {
+  /** No fields in update input */
+  _?: InputMaybe<Scalars['String']>;
+};
+
+export type SidebarUpdateManyInput = {
+  /** No fields in updateMany data input */
+  _?: InputMaybe<Scalars['String']>;
+};
+
+export type SidebarUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: SidebarUpdateManyInput;
+  /** Document search */
+  where: SidebarWhereInput;
+};
+
+export type SidebarUpdateWithNestedWhereUniqueAndPositionInput = {
+  /** Document to update */
+  data?: InputMaybe<SidebarUpdateInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: SidebarWhereUniqueInput;
+};
+
+export type SidebarUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: SidebarUpdateInput;
+  /** Unique document search */
+  where: SidebarWhereUniqueInput;
+};
+
+export type SidebarUpsertInput = {
+  /** Create document if it didn't exist */
+  create: SidebarCreateInput;
+  /** Update document if it exists */
+  update: SidebarUpdateInput;
+};
+
+export type SidebarUpsertWithNestedWhereUniqueAndPositionInput = {
+  /** Document to upsert */
+  data?: InputMaybe<SidebarUpsertInput>;
+  /** Position in the list of existing component instances, will default to appending at the end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Unique component instance search */
+  where: SidebarWhereUniqueInput;
+};
+
+export type SidebarUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: SidebarUpsertInput;
+  /** Unique document search */
+  where: SidebarWhereUniqueInput;
+};
+
+/** Identifies documents */
+export type SidebarWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SidebarWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+};
+
+/** References Sidebar record uniquely */
+export type SidebarWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
 /** Stage system enumeration */
 export enum Stage {
   /** The Draft is the default stage for all your content. */
@@ -3553,3 +3721,11 @@ export enum _SystemDateTimeFieldVariation {
   Combined = 'combined',
   Localization = 'localization'
 }
+
+export type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogPostsQuery = { __typename?: 'Query', blogModels: Array<{ __typename?: 'BlogModel', createdAt: any, id: string, publishedAt?: any | null, slug: string, subtitle?: string | null, title: string, updatedAt: any }> };
+
+
+export const BlogPostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"blogPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogModels"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BlogPostsQuery, BlogPostsQueryVariables>;

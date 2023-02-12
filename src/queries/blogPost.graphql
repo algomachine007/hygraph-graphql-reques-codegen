@@ -1,0 +1,15 @@
+query blogPosts {
+  blogModels {
+    ...BlogModelFragment
+  }
+}
+
+fragment BlogModelFragment on BlogModel {
+  createdAt
+  id
+  publishedAt
+  slug
+  subtitle
+  title
+  updatedAt
+}
