@@ -1,4 +1,4 @@
-import { GraphQLClient } from "graphql-request";
+import { client } from "@/base/utils/gqlClient";
 import { GetServerSideProps } from "next";
 import { graphql } from "../gql/gql";
 import { BlogPostsQuery } from "../gql/graphql";
@@ -20,8 +20,6 @@ export default function Home({ blogPosts }: TBlogPosts) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const client = new GraphQLClient(process.env.NEXT_URL_HYGRAPH_URL || "");
-
   const BLOGS = graphql(`
     query blogPosts {
       blogModels {

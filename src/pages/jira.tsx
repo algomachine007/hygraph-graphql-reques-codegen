@@ -1,7 +1,7 @@
+import { client } from "@/base/utils/gqlClient";
 import Content from "@/components/content/Content";
 import Main from "@/components/layout/Main";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { GraphQLClient } from "graphql-request";
 import { graphql } from "../gql/gql";
 import { SidebarsQuery } from "../gql/graphql";
 
@@ -19,7 +19,6 @@ const Jira = ({ data }: { data: SidebarsQuery }) => {
 export default Jira;
 
 export const getServerSideProps = async () => {
-  const client = new GraphQLClient(process.env.NEXT_URL_HYGRAPH_URL || "");
   const SIDEBAR_DATA = graphql(`
     query Sidebars {
       sidebars {

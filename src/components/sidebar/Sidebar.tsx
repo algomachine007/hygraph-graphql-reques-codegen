@@ -58,6 +58,7 @@ const Sidebar = ({ sidebars }: SidebarsQuery) => {
                   alt="Picture of the author"
                   width={50}
                   height={50}
+                  className={styles.image}
                 />
                 {sidebar.title}
               </span>
