@@ -3,6 +3,7 @@
   box-sizing: border-box;
   height: calc(100vh - 15vh);
   position: relative;
+  min-width: 100px;
 }
 
 .control {
@@ -28,4 +29,15 @@
   to {
     box-shadow: 0 0 5px 10px #c6c6c6;
   }
+}
+
+.linkWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.linkWrapper a {
+  margin: 20px;
+  text-transform: capitalize;
 }

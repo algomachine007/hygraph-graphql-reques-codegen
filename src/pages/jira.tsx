@@ -9,7 +9,7 @@ const Jira = ({ data }: { data: SidebarsQuery }) => {
   console.log(data);
   return (
     <Main>
-      <Sidebar />
+      <Sidebar sidebars={data.sidebars} />
       <Content />
     </Main>
   );
