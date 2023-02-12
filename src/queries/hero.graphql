@@ -1,0 +1,18 @@
+query Hero($title: String!) {
+  heroes(where: { title: $title }) {
+    title
+    description {
+      html
+    }
+    ...HeroFragment
+  }
+}
+
+fragment HeroFragment on Hero {
+  cta {
+    text
+    icon {
+      id
+    }
+  }
+}

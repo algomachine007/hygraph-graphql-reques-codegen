@@ -3,15 +3,19 @@ import Content from "@/components/content/Content";
 import Main from "@/components/layout/Main";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { graphql } from "../gql/gql";
-import { SidebarsQuery } from "../gql/graphql";
+import { HeroQuery, SidebarsQuery } from "../gql/graphql";
 
-const Jira = ({ data }: { data: SidebarsQuery }) => {
-  console.log(data);
+type TSidebarData = {
+  data: SidebarsQuery;
+  hero: HeroQuery;
+};
 
+const Jira = ({ data, hero }: TSidebarData) => {
+  console.log(hero);
   return (
     <Main>
       <Sidebar sidebars={data.sidebars} />
-      <Content />
+      <Content hero={hero.heroes[0]} />
     </Main>
   );
 };
@@ -31,11 +35,34 @@ export const getServerSideProps = async () => {
     }
   `);
 
+  const HERO_DATA = graphql(`
+    query Hero($title: String!) {
+      heroes(where: { title: $title }) {
+        title
+        description {
+          html
+        }
+        cta {
+          text
+          icon {
+            id
+          }
+        }
+      }
+    }
+  `);
+
+  const HeroQueryVariables = {
+    title: "Welcome To Home Page",
+  };
+
   const sidebarData = await client.request(SIDEBAR_DATA);
+  const heroData = await client.request(HERO_DATA, HeroQueryVariables);
 
   return {
     props: {
       data: sidebarData,
+      hero: heroData,
     },
   };
 };
