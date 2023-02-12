@@ -1,0 +1,10 @@
+query Sidebar {
+  sidebars {
+    ...SidebarsFragment
+  }
+}
+
+fragment SidebarsFragment on Sidebar {
+  title
+  slug
+}

@@ -1401,6 +1401,8 @@ export type Mutation = {
   createBlogModel?: Maybe<BlogModel>;
   /** Create one scheduledRelease */
   createScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Create one sidebar */
+  createSidebar?: Maybe<Sidebar>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
   deleteAsset?: Maybe<Asset>;
   /** Delete one blogModel from _all_ existing stages. Returns deleted document. */
@@ -1419,10 +1421,19 @@ export type Mutation = {
   deleteManyBlogModels: BatchPayload;
   /** Delete many BlogModel documents, return deleted documents */
   deleteManyBlogModelsConnection: BlogModelConnection;
+  /**
+   * Delete many Sidebar documents
+   * @deprecated Please use the new paginated many mutation (deleteManySidebarsConnection)
+   */
+  deleteManySidebars: BatchPayload;
+  /** Delete many Sidebar documents, return deleted documents */
+  deleteManySidebarsConnection: SidebarConnection;
   /** Delete and return scheduled operation */
   deleteScheduledOperation?: Maybe<ScheduledOperation>;
   /** Delete one scheduledRelease from _all_ existing stages. Returns deleted document. */
   deleteScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Delete one sidebar from _all_ existing stages. Returns deleted document. */
+  deleteSidebar?: Maybe<Sidebar>;
   /** Publish one asset */
   publishAsset?: Maybe<Asset>;
   /** Publish one blogModel */
@@ -1441,14 +1452,27 @@ export type Mutation = {
   publishManyBlogModels: BatchPayload;
   /** Publish many BlogModel documents */
   publishManyBlogModelsConnection: BlogModelConnection;
+  /**
+   * Publish many Sidebar documents
+   * @deprecated Please use the new paginated many mutation (publishManySidebarsConnection)
+   */
+  publishManySidebars: BatchPayload;
+  /** Publish many Sidebar documents */
+  publishManySidebarsConnection: SidebarConnection;
+  /** Publish one sidebar */
+  publishSidebar?: Maybe<Sidebar>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
   /** Schedule to publish one blogModel */
   schedulePublishBlogModel?: Maybe<BlogModel>;
+  /** Schedule to publish one sidebar */
+  schedulePublishSidebar?: Maybe<Sidebar>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
   /** Unpublish one blogModel from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishBlogModel?: Maybe<BlogModel>;
+  /** Unpublish one sidebar from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishSidebar?: Maybe<Sidebar>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
   /** Unpublish one blogModel from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1467,6 +1491,15 @@ export type Mutation = {
   unpublishManyBlogModels: BatchPayload;
   /** Find many BlogModel documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyBlogModelsConnection: BlogModelConnection;
+  /**
+   * Unpublish many Sidebar documents
+   * @deprecated Please use the new paginated many mutation (unpublishManySidebarsConnection)
+   */
+  unpublishManySidebars: BatchPayload;
+  /** Find many Sidebar documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManySidebarsConnection: SidebarConnection;
+  /** Unpublish one sidebar from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishSidebar?: Maybe<Sidebar>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
   /** Update one blogModel */
@@ -1485,12 +1518,23 @@ export type Mutation = {
   updateManyBlogModels: BatchPayload;
   /** Update many BlogModel documents */
   updateManyBlogModelsConnection: BlogModelConnection;
+  /**
+   * Update many sidebars
+   * @deprecated Please use the new paginated many mutation (updateManySidebarsConnection)
+   */
+  updateManySidebars: BatchPayload;
+  /** Update many Sidebar documents */
+  updateManySidebarsConnection: SidebarConnection;
   /** Update one scheduledRelease */
   updateScheduledRelease?: Maybe<ScheduledRelease>;
+  /** Update one sidebar */
+  updateSidebar?: Maybe<Sidebar>;
   /** Upsert one asset */
   upsertAsset?: Maybe<Asset>;
   /** Upsert one blogModel */
   upsertBlogModel?: Maybe<BlogModel>;
+  /** Upsert one sidebar */
+  upsertSidebar?: Maybe<Sidebar>;
 };
 
 
@@ -1506,6 +1550,11 @@ export type MutationCreateBlogModelArgs = {
 
 export type MutationCreateScheduledReleaseArgs = {
   data: ScheduledReleaseCreateInput;
+};
+
+
+export type MutationCreateSidebarArgs = {
+  data: SidebarCreateInput;
 };
 
 
@@ -1549,6 +1598,21 @@ export type MutationDeleteManyBlogModelsConnectionArgs = {
 };
 
 
+export type MutationDeleteManySidebarsArgs = {
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationDeleteManySidebarsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
 export type MutationDeleteScheduledOperationArgs = {
   where: ScheduledOperationWhereUniqueInput;
 };
@@ -1556,6 +1620,11 @@ export type MutationDeleteScheduledOperationArgs = {
 
 export type MutationDeleteScheduledReleaseArgs = {
   where: ScheduledReleaseWhereUniqueInput;
+};
+
+
+export type MutationDeleteSidebarArgs = {
+  where: SidebarWhereUniqueInput;
 };
 
 
@@ -1616,6 +1685,30 @@ export type MutationPublishManyBlogModelsConnectionArgs = {
 };
 
 
+export type MutationPublishManySidebarsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationPublishManySidebarsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationPublishSidebarArgs = {
+  to?: Array<Stage>;
+  where: SidebarWhereUniqueInput;
+};
+
+
 export type MutationSchedulePublishAssetArgs = {
   locales?: InputMaybe<Array<Locale>>;
   publishBase?: InputMaybe<Scalars['Boolean']>;
@@ -1635,6 +1728,14 @@ export type MutationSchedulePublishBlogModelArgs = {
 };
 
 
+export type MutationSchedulePublishSidebarArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: SidebarWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishAssetArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -1650,6 +1751,14 @@ export type MutationScheduleUnpublishBlogModelArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: BlogModelWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishSidebarArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: SidebarWhereUniqueInput;
 };
 
 
@@ -1707,6 +1816,30 @@ export type MutationUnpublishManyBlogModelsConnectionArgs = {
 };
 
 
+export type MutationUnpublishManySidebarsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationUnpublishManySidebarsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationUnpublishSidebarArgs = {
+  from?: Array<Stage>;
+  where: SidebarWhereUniqueInput;
+};
+
+
 export type MutationUpdateAssetArgs = {
   data: AssetUpdateInput;
   where: AssetWhereUniqueInput;
@@ -1753,9 +1886,32 @@ export type MutationUpdateManyBlogModelsConnectionArgs = {
 };
 
 
+export type MutationUpdateManySidebarsArgs = {
+  data: SidebarUpdateManyInput;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
+export type MutationUpdateManySidebarsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: SidebarUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SidebarManyWhereInput>;
+};
+
+
 export type MutationUpdateScheduledReleaseArgs = {
   data: ScheduledReleaseUpdateInput;
   where: ScheduledReleaseWhereUniqueInput;
+};
+
+
+export type MutationUpdateSidebarArgs = {
+  data: SidebarUpdateInput;
+  where: SidebarWhereUniqueInput;
 };
 
 
@@ -1768,6 +1924,12 @@ export type MutationUpsertAssetArgs = {
 export type MutationUpsertBlogModelArgs = {
   upsert: BlogModelUpsertInput;
   where: BlogModelWhereUniqueInput;
+};
+
+
+export type MutationUpsertSidebarArgs = {
+  upsert: SidebarUpsertInput;
+  where: SidebarWhereUniqueInput;
 };
 
 /** An object with an ID */
@@ -1832,6 +1994,14 @@ export type Query = {
   scheduledReleases: Array<ScheduledRelease>;
   /** Retrieve multiple scheduledReleases using the Relay connection interface */
   scheduledReleasesConnection: ScheduledReleaseConnection;
+  /** Retrieve a single sidebar */
+  sidebar?: Maybe<Sidebar>;
+  /** Retrieve document version */
+  sidebarVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple sidebars */
+  sidebars: Array<Sidebar>;
+  /** Retrieve multiple sidebars using the Relay connection interface */
+  sidebarsConnection: SidebarConnection;
   /** Retrieve a single user */
   user?: Maybe<User>;
   /** Retrieve multiple users */
@@ -1990,6 +2160,44 @@ export type QueryScheduledReleasesConnectionArgs = {
 };
 
 
+export type QuerySidebarArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: SidebarWhereUniqueInput;
+};
+
+
+export type QuerySidebarVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QuerySidebarsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<SidebarOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<SidebarWhereInput>;
+};
+
+
+export type QuerySidebarsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<SidebarOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<SidebarWhereInput>;
+};
+
+
 export type QueryUserArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
@@ -2134,7 +2342,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | BlogModel;
+export type ScheduledOperationAffectedDocument = Asset | BlogModel | Sidebar;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -3049,12 +3257,82 @@ export type ScheduledReleaseWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-export type Sidebar = {
+export type Sidebar = Node & {
   __typename?: 'Sidebar';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Sidebar>;
+  /** List of Sidebar versions */
+  history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  slug?: Maybe<Scalars['String']>;
   /** System stage field */
   stage: Stage;
+  title?: Maybe<Scalars['String']>;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type SidebarCreatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type SidebarDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type SidebarHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type SidebarPublishedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type SidebarScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type SidebarUpdatedByArgs = {
+  forceParentLocale?: InputMaybe<Scalars['Boolean']>;
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type SidebarConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: SidebarWhereUniqueInput;
 };
 
 /** A connection to a list of items. */
@@ -3068,15 +3346,24 @@ export type SidebarConnection = {
 };
 
 export type SidebarCreateInput = {
-  /** No fields in create input */
-  _?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type SidebarCreateWithPositionInput = {
-  /** Document to create */
-  data: SidebarCreateInput;
-  /** Position in the list of existing component instances, will default to appending at the end of list */
-  position?: InputMaybe<ConnectPositionInput>;
+export type SidebarCreateManyInlineInput = {
+  /** Connect multiple existing Sidebar documents */
+  connect?: InputMaybe<Array<SidebarWhereUniqueInput>>;
+  /** Create and connect multiple existing Sidebar documents */
+  create?: InputMaybe<Array<SidebarCreateInput>>;
+};
+
+export type SidebarCreateOneInlineInput = {
+  /** Connect one existing Sidebar document */
+  connect?: InputMaybe<SidebarWhereUniqueInput>;
+  /** Create and connect one Sidebar document */
+  create?: InputMaybe<SidebarCreateInput>;
 };
 
 /** An edge in a connection. */
@@ -3098,6 +3385,25 @@ export type SidebarManyWhereInput = {
   OR?: InputMaybe<Array<SidebarWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SidebarWhereStageInput>;
+  documentInStages_none?: InputMaybe<SidebarWhereStageInput>;
+  documentInStages_some?: InputMaybe<SidebarWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3117,21 +3423,120 @@ export type SidebarManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
 };
 
 export enum SidebarOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
   IdAsc = 'id_ASC',
-  IdDesc = 'id_DESC'
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
 }
 
 export type SidebarUpdateInput = {
-  /** No fields in update input */
-  _?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type SidebarUpdateManyInlineInput = {
+  /** Connect multiple existing Sidebar documents */
+  connect?: InputMaybe<Array<SidebarConnectInput>>;
+  /** Create and connect multiple Sidebar documents */
+  create?: InputMaybe<Array<SidebarCreateInput>>;
+  /** Delete multiple Sidebar documents */
+  delete?: InputMaybe<Array<SidebarWhereUniqueInput>>;
+  /** Disconnect multiple Sidebar documents */
+  disconnect?: InputMaybe<Array<SidebarWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Sidebar documents */
+  set?: InputMaybe<Array<SidebarWhereUniqueInput>>;
+  /** Update multiple Sidebar documents */
+  update?: InputMaybe<Array<SidebarUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Sidebar documents */
+  upsert?: InputMaybe<Array<SidebarUpsertWithNestedWhereUniqueInput>>;
 };
 
 export type SidebarUpdateManyInput = {
-  /** No fields in updateMany data input */
-  _?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
 };
 
 export type SidebarUpdateManyWithNestedWhereInput = {
@@ -3141,13 +3546,19 @@ export type SidebarUpdateManyWithNestedWhereInput = {
   where: SidebarWhereInput;
 };
 
-export type SidebarUpdateWithNestedWhereUniqueAndPositionInput = {
-  /** Document to update */
-  data?: InputMaybe<SidebarUpdateInput>;
-  /** Position in the list of existing component instances, will default to appending at the end of list */
-  position?: InputMaybe<ConnectPositionInput>;
-  /** Unique component instance search */
-  where: SidebarWhereUniqueInput;
+export type SidebarUpdateOneInlineInput = {
+  /** Connect existing Sidebar document */
+  connect?: InputMaybe<SidebarWhereUniqueInput>;
+  /** Create and connect one Sidebar document */
+  create?: InputMaybe<SidebarCreateInput>;
+  /** Delete currently connected Sidebar document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Sidebar document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Sidebar document */
+  update?: InputMaybe<SidebarUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Sidebar document */
+  upsert?: InputMaybe<SidebarUpsertWithNestedWhereUniqueInput>;
 };
 
 export type SidebarUpdateWithNestedWhereUniqueInput = {
@@ -3164,20 +3575,17 @@ export type SidebarUpsertInput = {
   update: SidebarUpdateInput;
 };
 
-export type SidebarUpsertWithNestedWhereUniqueAndPositionInput = {
-  /** Document to upsert */
-  data?: InputMaybe<SidebarUpsertInput>;
-  /** Position in the list of existing component instances, will default to appending at the end of list */
-  position?: InputMaybe<ConnectPositionInput>;
-  /** Unique component instance search */
-  where: SidebarWhereUniqueInput;
-};
-
 export type SidebarUpsertWithNestedWhereUniqueInput = {
   /** Upsert data */
   data: SidebarUpsertInput;
   /** Unique document search */
   where: SidebarWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type SidebarWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** Identifies documents */
@@ -3190,6 +3598,25 @@ export type SidebarWhereInput = {
   OR?: InputMaybe<Array<SidebarWhereInput>>;
   /** Contains search across all appropriate fields. */
   _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<SidebarWhereStageInput>;
+  documentInStages_none?: InputMaybe<SidebarWhereStageInput>;
+  documentInStages_some?: InputMaybe<SidebarWhereStageInput>;
   id?: InputMaybe<Scalars['ID']>;
   /** All values containing the given string. */
   id_contains?: InputMaybe<Scalars['ID']>;
@@ -3209,11 +3636,99 @@ export type SidebarWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type SidebarWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<SidebarWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<SidebarWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<SidebarWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<SidebarWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
 };
 
 /** References Sidebar record uniquely */
 export type SidebarWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
 };
 
 /** Stage system enumeration */
@@ -3727,5 +4242,11 @@ export type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type BlogPostsQuery = { __typename?: 'Query', blogModels: Array<{ __typename?: 'BlogModel', createdAt: any, id: string, publishedAt?: any | null, slug: string, subtitle?: string | null, title: string, updatedAt: any }> };
 
+export type SidebarsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SidebarsQuery = { __typename?: 'Query', sidebars: Array<{ __typename?: 'Sidebar', title?: string | null, slug?: string | null }> };
+
 
 export const BlogPostsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"blogPosts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"blogModels"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<BlogPostsQuery, BlogPostsQueryVariables>;
+export const SidebarsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sidebars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}}]}}]} as unknown as DocumentNode<SidebarsQuery, SidebarsQueryVariables>;

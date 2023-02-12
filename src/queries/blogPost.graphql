@@ -4,7 +4,7 @@ query blogPosts {
   }
 }
 
-fragment BlogModelFragment on BlogModel {
+fragment BlogModelFragment on Blog {
   createdAt
   id
   publishedAt

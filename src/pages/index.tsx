@@ -22,7 +22,7 @@ export default function Home({ blogPosts }: TBlogPosts) {
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new GraphQLClient(process.env.NEXT_URL_HYGRAPH_URL || "");
 
-  const BLOGS = graphql(/* GraphQL */ `
+  const BLOGS = graphql(`
     query blogPosts {
       blogModels {
         createdAt
@@ -36,19 +36,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
   `);
 
-  // const BLOG_POSTS = gql`
-  //   {
-  //     blogPosts {
-  //       createdAt
-  //       id
-  //       publishedAt
-  //       slug
-  //       subtitle
-  //       title
-  //       updatedAt
-  //     }
-  //   }
-  // `;
   const data = await client.request(BLOGS);
   return {
     props: { blogPosts: data },
