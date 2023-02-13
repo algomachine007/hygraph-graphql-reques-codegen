@@ -11,7 +11,6 @@ type TSidebarData = {
 };
 
 const Jira = ({ data, hero }: TSidebarData) => {
-  console.log(hero);
   return (
     <Main>
       <Sidebar sidebars={data.sidebars} />
@@ -58,6 +57,10 @@ export const getServerSideProps = async () => {
 
   const sidebarData = await client.request(SIDEBAR_DATA);
   const heroData = await client.request(HERO_DATA, HeroQueryVariables);
+
+  const getData = await fetch("http://localhost:3000/api/hero");
+
+  console.log("HERO DATA SERVERLESS", getData);
 
   return {
     props: {
