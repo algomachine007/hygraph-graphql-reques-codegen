@@ -19,12 +19,12 @@ export class AlgoliaService {
   async createObjectsInAlgolia() {
     const objects = this.items;
 
-    console.log("create objects", objects);
-
-    const dataToAlgolia = objects.map((elem: any, index: any) => ({
-      objectID: index,
-      ...elem,
-    }));
+    const dataToAlgolia = objects.map(
+      (elem: Record<string, string | { id: string }>, index: number) => ({
+        objectID: index,
+        ...elem,
+      }),
+    );
 
     try {
       const data = await this.createAlgoliaService().saveObjects(dataToAlgolia);

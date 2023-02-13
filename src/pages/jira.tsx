@@ -2,7 +2,6 @@ import { client } from "@/base/utils/gqlClient";
 import Content from "@/components/content/Content";
 import Main from "@/components/layout/Main";
 import Sidebar from "@/components/sidebar/Sidebar";
-import axios from "axios";
 import { graphql } from "../gql/gql";
 import { HeroQuery, SidebarsQuery } from "../gql/graphql";
 
@@ -58,8 +57,6 @@ export const getServerSideProps = async () => {
 
   const sidebarData = await client.request(SIDEBAR_DATA);
   const heroData = await client.request(HERO_DATA, HeroQueryVariables);
-
-  // const getData = await fetch("http://localhost:3000/api/hero");
 
   // await axios.post(
   //   "http://localhost:3000/api/hygraph-algolia",
