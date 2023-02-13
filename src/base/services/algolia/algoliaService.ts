@@ -1,11 +1,6 @@
 import algoliasearch from "algoliasearch";
 
-const client = algoliasearch(
-  process.env.ALGOLIA_INDEX_NAME || "",
-  "YourAdminAPIKey",
-);
-
-class AlgoliaService {
+export class AlgoliaService {
   items: any;
   constructor(items: any) {
     this.items = items;
@@ -19,5 +14,28 @@ class AlgoliaService {
     const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME!);
 
     return index;
+  }
+
+  async createObjectsInAlgolia() {
+    const objects = this.items;
+
+    console.log("create objects", objects);
+
+    const dataToAlgolia = objects.map((elem: any, index: any) => ({
+      objectID: index,
+      ...elem,
+    }));
+
+    try {
+      const data = await this.createAlgoliaService().saveObjects(dataToAlgolia);
+
+      if (data.objectIDs && data.taskIDs) {
+        console.log(data, "Sent successfully 🔥");
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error", error);
+    }
   }
 }
