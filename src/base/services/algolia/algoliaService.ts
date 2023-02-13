@@ -8,10 +8,10 @@ export class AlgoliaService {
 
   createAlgoliaService() {
     const client = algoliasearch(
-      process.env.ALGOLIA_ID!,
+      process.env.NEXT_PUBLIC_ALGOLIA_ID!,
       process.env.ALGOLIA_ADMIN_KEY!,
     );
-    const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME!);
+    const index = client.initIndex(process.env.NEXT_ALGOLIA_INDEX_NAME!);
 
     return index;
   }
