@@ -19,3 +19,7 @@ const config: CodegenConfig = {
 };
 
 export default config;
+
+// from the navbar, search sidebar items
+// use serverless functionality
+// deploy
